@@ -1,0 +1,61 @@
+<center>
+  <h4>{{key.fname}}</h4>
+  <h4>{{key.lname}}</h4>
+  <h4>{{key.email}}</h4>
+  <h4>{{key.password}}</h4>
+  <a href="{% url 'logout' %}">Logout</a> <br /><br /><br />
+  <h1>Query Form</h1>
+
+  {% if key1 %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="email" name="email" value="{{key1.email}}" readonly /> <br />
+    <br />
+    <input type="text" name="query" value="{{key1.query}}" required /> <br />
+    <br />
+    <input type="submit" value="Update" />
+  </form>
+  {% else %}
+
+  <form action="{% url 'queryinsert' %}" method="post">
+    {% csrf_token %}
+    <input type="email" name="email" value="{{key.email}}" readonly /> <br />
+    <br />
+    <input type="text" name="query" placeholder="Query" required /> <br />
+    <br />
+    <input type="submit" value="Send" />
+  </form>
+
+  {% endif %}
+
+  <a href="{% url 'queryshow' pk=key.email %}">Show queries</a>
+
+  {% if data %}
+
+  <table border cellspacing="3" cellpadding="5" width="50%">
+    <tr>
+      <th>Sr no</th>
+      <th>id</th>
+      <th>Email</th>
+      <th>Query</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+
+    {% for i in data %}
+
+    <tr>
+      <td>{{forloop.revcounter0}}</td> <!--counter , revcounter , counter0 -->
+      <td>{{i.id}}</td>
+      <td>{{i.Email}}</td>
+      <td>{{i.query}}</td>
+      <td><a href="{% url 'edit' pk=i.id %}">Edit</a></td>
+      <td><a href="{% url 'delete' pk=i.id %}">Delete</a></td>
+    </tr>
+
+    {% endfor %}
+  </table>
+
+  {% endif %}
+</center>
