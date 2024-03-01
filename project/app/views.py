@@ -4,6 +4,9 @@ from .models import *
 
 #View for Register Page
 
+# hello world
+
+
 def RegisterPage(request):
     return render(request,"app/register.html")
 
